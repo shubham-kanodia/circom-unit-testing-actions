@@ -1,16 +1,16 @@
 const hre = require("hardhat");
 const { assert } = require("chai");
 
-describe("simple-polynomial circuit", () => {
+describe("VerifySum circuit", () => {
   let circuit;
 
   const sampleInput = {
-    x: 5,
+    numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   };
   const sanityCheck = true;
 
   before(async () => {
-    circuit = await hre.circuitTest.setup("simple-polynomial");
+    circuit = await hre.circuitTest.setup("verify-sum");
   });
 
   it("produces a witness with valid constraints", async () => {
@@ -18,20 +18,10 @@ describe("simple-polynomial circuit", () => {
     await circuit.checkConstraints(witness);
   });
 
-  it("has expected witness values", async () => {
-    const witness = await circuit.calculateLabeledWitness(
-      sampleInput,
-      sanityCheck
-    );
-    assert.propertyVal(witness, "main.x", "5");
-    assert.propertyVal(witness, "main.x_squared", "25");
-    assert.propertyVal(witness, "main.x_cubed", undefined);
-    assert.propertyVal(witness, "main.out", "127");
-  });
-
   it("has the correct output", async () => {
-    const expected = { out: 127 };
+    const expected = { out: 55 };
     const witness = await circuit.calculateWitness(sampleInput, sanityCheck);
+
     await circuit.assertOut(witness, expected);
   });
 });

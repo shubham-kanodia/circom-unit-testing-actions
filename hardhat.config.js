@@ -16,7 +16,7 @@ module.exports = {
     ptau: "https://hermezptau.blob.core.windows.net/ptau/powersOfTau28_hez_final_15.ptau",
     circuits: [
       {
-        name: "simple-polynomial",
+        name: "verify-sum",
         protocol: "plonk"
       }
     ],
